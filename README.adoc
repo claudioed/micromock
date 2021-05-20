@@ -1,0 +1,19 @@
+= Microcks Mocks for APIs
+Doc Writer <claudioed.oliveira@gmail.com>
+:reproducible:
+:listing-caption: Listing
+:source-highlighter: rouge
+:toc:
+// Uncomment next line to add a title page (or set doctype to book)
+//:title-page:
+// Uncomment next line to set page size (default is A4)
+//:pdf-page-size: Letter
+
+
+== Requirements
+* kubernetes cluster minikube
+* Ingress Addon enabled for minikube
+* helm
+
+== Installation
+You can use the script located at folders to install required tools.
