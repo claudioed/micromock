@@ -1,0 +1,75 @@
+api:
+  name: apicurio-studio-api
+  image: apicurio/apicurio-studio-api
+  jvmArgs: -Djava.net.preferIPv4Stack=true
+  port: 8091
+  imagePullPolicy: IfNotPresent
+  extraVolumes: []
+
+ui:
+  name: apicurio-studio-ui
+  image: apicurio/apicurio-studio-ui
+  jvmArgs: -Djava.net.preferIPv4Stack=true
+  port: 8093
+  imagePullPolicy: IfNotPresent
+  channelNameRegex: ([^{}\/]*(\{[a-zA-Z_][0-9a-zA-Z_]*\})?)+
+  hostname: apicurio.192.168.49.2.nip.io
+  extraVolumes: []
+  logout:
+    redirect:
+      uri: "/"
+  hub:
+    api:
+      # url to hub api
+      url: null
+  editing:
+    # url to editing
+    url: null
+  feature:
+    microcks: true
+
+ws:
+  name: apicurio-studio-ws
+  image: apicurio/apicurio-studio-ws
+  jvmArgs: -Djava.net.preferIPv4Stack=true
+  port: 8092
+  imagePullPolicy: IfNotPresent
+  extraVolumes: []
+
+database:
+  name: apicurio-studio-db
+  image: percona:5.7
+  port: 3306
+  imagePullPolicy: IfNotPresent
+  initialize: true
+  driver: mysql
+  type: mysql5
+  url: jdbc:mysql://apicurio-studio-db:3306/apicuriodb
+  schema: apicuriodb
+  #default passwords and user
+  password: apicuriodb
+  rootPassword: apicuriodb
+  user: apicuriodb
+  extraVolumes: []
+
+uiFeatureShareForEveryone: true
+loggingEnabled: false
+
+#Configure microcks application
+microcks:
+  api:
+    # url to mickrocks application
+    url: http://microcks.microcks.svc.cluster.local:8080/api
+  client:
+    id: microcks-serviceaccount
+    secret: ab54d329-e435-41ae-a900-ec6b3fe15c54
+
+#Configure keycloak application
+keycloak:
+  # url to keycloak app
+  url: https://keycloak.192.168.49.2.nip.io/auth
+  realm: apicurio
+  client:
+    id: apicurio-studio
+    #default secret
+    #secret: apicuriokc
